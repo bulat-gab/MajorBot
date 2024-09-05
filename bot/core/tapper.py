@@ -72,15 +72,13 @@ class Tapper:
                     logger.warning(f"{self.session_name} | FloodWait {fl}")
                     logger.info(f"{self.session_name} | Sleep {fls}s")
                     await asyncio.sleep(fls + 3)
-            
-            ref_id = settings.REF_ID if random.randint(0, 100) <= 85 else "339631649"
-            
+                        
             web_view = await self.tg_client.invoke(messages.RequestAppWebView(
                 peer=peer,
                 app=InputBotAppShortName(bot_id=peer, short_name="start"),
                 platform='android',
                 write_allowed=True,
-                start_param=ref_id
+                start_param=settings.REF_ID
             ))
 
             auth_url = web_view.url
@@ -92,7 +90,7 @@ class Tapper:
             if self.tg_client.is_connected:
                 await self.tg_client.disconnect()
 
-            return ref_id, tg_web_data
+            return settings.REF_ID, tg_web_data
 
         except InvalidSession as error:
             logger.error(f"{self.session_name} | Invalid session")

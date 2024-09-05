@@ -1,0 +1,13 @@
+[Unit]
+After=docker.service
+Description=Run docker compose MajorBot
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/root/MajorBot
+ExecStart=/usr/bin/docker compose -f /root/MajorBot/docker-compose.yml up -d --remove-orphans
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
